@@ -1,1 +1,8 @@
-{}
+{
+  "grass": {
+    "name": "grass",
+    "imagePath": "assets\\map\\Ground\\TexturedGrass.png",
+    "uv": [16, 0],
+    "size": [16, 16]
+  }
+}

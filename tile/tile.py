@@ -1,5 +1,6 @@
 import json
 import pygame
+from .pallete import Pallete
 
 
 class Tile:
@@ -12,6 +13,9 @@ class Tile:
         self.y = y
         self.tile = tile
 
+    def getTexture(self, pallete: Pallete):
+        return pallete.get_tile(self.tile)
+
 
 # {
 #     "name": "Grass",
@@ -22,17 +26,26 @@ class Tile:
 # }
 
 
-class TileLoader:
+class TileMap:
 
-    def __init__(self):
-        with open("tiles/tileData.json", "r") as file:
-            self.tileData = json.load(file)
+    tiles: list[Tile]
 
-        # tileKey를 Group처럼 사용해서 imageLoad를 최적화 할 수 있음
-        for tileKey, tile in self.tileData.items():
-            image = pygame.image.load(f"assets/map/Ground/{tile['imagePath']}")
-            rect = pygame.Rect(tile["uv"], tile["size"])
-            tile["image"] = image.subsurface(rect)
+    screen: pygame.Surface
 
-    def get_tile(self, tile_name: str):
-        return
+    pallete: Pallete
+
+    def __init__(self, pallete: Pallete):
+        self.tiles = [Tile(i, j, "grass") for j in range(100) for i in range(100)]
+        self.screen = pygame.Surface((60 * 100, 60 * 100))
+        self.pallete = pallete
+
+        for tile in self.tiles:
+            self.screen.blit(pallete.get_tile(tile.tile), (tile.x * 60, tile.y * 60))
+
+    def add_tile(self, x: int, y: int, tile: str):
+        self.tiles.append(Tile(x, y, tile))
+
+    def render(self, window: pygame.Surface, x, y):
+        window.blit(self.screen, [-x, -y])
+        # for tile in self.tiles:
+        #     window.blit(self.pallete.get_tile(tile.tile), (tile.x * 60, tile.y * 60))
