@@ -40,6 +40,23 @@ class Player:
     def vector(self):
         return pygame.math.Vector2(self.x, self.y)
 
+    def move(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            running = False
+        player_movement = pygame.math.Vector2(0, 0)
+        if keys[pygame.K_LEFT]:
+            player_movement.x = -self.speed
+        if keys[pygame.K_RIGHT]:
+            player_movement.x = self.speed
+        if keys[pygame.K_UP]:
+            player_movement.y = -self.speed
+        if keys[pygame.K_DOWN]:
+            player_movement.y = self.speed
+
+        self.x += player_movement.x
+        self.y += player_movement.y
+
     def getCameraTileRange(self):
         # 1920/2 = 960 1080/2 = 540
         return {

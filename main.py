@@ -27,21 +27,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_ESCAPE]:
-        running = False
-    player_movement = pygame.math.Vector2(0, 0)
-    if keys[pygame.K_LEFT]:
-        player_movement.x = -player.speed
-    if keys[pygame.K_RIGHT]:
-        player_movement.x = player.speed
-    if keys[pygame.K_UP]:
-        player_movement.y = -player.speed
-    if keys[pygame.K_DOWN]:
-        player_movement.y = player.speed
-
-    player.x += player_movement.x
-    player.y += player_movement.y
+    player.move()
 
     # Update game logic
     tileMap.render(window, player.x, player.y)
