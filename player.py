@@ -50,9 +50,9 @@ class Player:
         }
 
     def getCurrentSprite(self):
-        if len(self.animation[self.state]) == 1:
-            uv = self.animation[self.state][0]["uv"]
-            size = self.animation[self.state][0]["size"]
+        if len(self.animation[self.state]["frames"]) == 1:
+            uv = self.animation[self.state]["frames"][0]["uv"]
+            size = self.animation[self.state]["frames"][0]["size"]
             return cutImageByUv(self.sprite, uv, size)
         if (
             time.time() - self.animatedTime
@@ -66,3 +66,6 @@ class Player:
             self.animation[self.state][self.animationFrame]["uv"],
             self.animation[self.state][self.animationFrame]["size"],
         )
+
+    def render(self, screen: pygame.Surface):
+        screen.blit(self.getCurrentSprite(), [960 - 32, 540 - 32])

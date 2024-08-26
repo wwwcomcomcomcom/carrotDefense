@@ -45,6 +45,7 @@ while running:
 
     # Update game logic
     tileMap.render(window, player.x, player.y)
+    player.render(window)
 
     # Update the display
     pygame.display.flip()
