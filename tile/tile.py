@@ -46,6 +46,6 @@ class TileMap:
         self.tiles.append(Tile(x, y, tile))
 
     def render(self, window: pygame.Surface, x, y):
-        window.blit(self.screen, [-x, -y])
+        window.blit(self.screen, [-x + 960, -y + 540])
         # for tile in self.tiles:
         #     window.blit(self.pallete.get_tile(tile.tile), (tile.x * 60, tile.y * 60))
