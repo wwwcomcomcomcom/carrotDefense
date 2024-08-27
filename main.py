@@ -2,21 +2,18 @@ import pygame
 from tile.tile import Tile, TileMap
 from tile.pallete import Pallete
 from player import Player
+from globalModule import windowWidth, windowHeight
 
 # Initialize Pygame
 pygame.init()
 
-# Set up the game window
-window_width = 1920
-window_height = 1080
 
-window = pygame.display.set_mode((window_width, window_height))
+window = pygame.display.set_mode((windowWidth, windowHeight))
 pygame.display.set_caption("My Game")
 
-
-player = Player()
 pallete = Pallete()
 tileMap = TileMap(pallete)
+player = Player(tileMap)
 
 # Game loop
 running = True
