@@ -1,6 +1,7 @@
 import json
 import pygame
 from .pallete import Pallete
+from typing import List
 
 
 class Tile:
@@ -28,24 +29,39 @@ class Tile:
 
 class TileMap:
 
-    tiles: list[Tile]
+    tiles: List[List[Tile]]
 
     screen: pygame.Surface
 
     pallete: Pallete
 
     def __init__(self, pallete: Pallete):
-        self.tiles = [Tile(i, j, "grass") for j in range(100) for i in range(100)]
-        self.screen = pygame.Surface((60 * 100, 60 * 100))
+        mapData = None
+        self.tiles = []
+        with open("save/town.json", "r") as file:
+            mapData = json.load(file)
+
+        for layer, tiles in mapData["layers"].items():
+            for y in range(mapData["height"]):
+                self.tiles.append(
+                    [
+                        Tile(
+                            x, y, mapData["tile"][str(tiles[x + y * mapData["width"]])]
+                        )
+                        for x in range(mapData["width"])
+                    ]
+                )
+        self.screen = pygame.Surface((64 * 100, 64 * 100))
         self.pallete = pallete
 
-        for tile in self.tiles:
-            self.screen.blit(pallete.get_tile(tile.tile), (tile.x * 60, tile.y * 60))
+        for row in self.tiles:
+            for tile in row:
+                self.screen.blit(
+                    pallete.get_tile(tile.tile), (tile.x * 64, tile.y * 64)
+                )
 
     def add_tile(self, x: int, y: int, tile: str):
-        self.tiles.append(Tile(x, y, tile))
+        self.tiles[x][y] = Tile(x, y, tile)
 
     def render(self, window: pygame.Surface, x, y):
-        window.blit(self.screen, [-x + 960, -y + 540])
-        # for tile in self.tiles:
-        #     window.blit(self.pallete.get_tile(tile.tile), (tile.x * 60, tile.y * 60))
+        window.blit(self.screen, [-x + 960 - 32, -y + 540 - 32])
