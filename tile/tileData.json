@@ -4,5 +4,11 @@
     "imagePath": "assets\\map\\Ground\\TexturedGrass.png",
     "uv": [16, 0],
     "size": [16, 16]
+  },
+  "water": {
+    "name": "water",
+    "imagePath": "assets\\map\\Ground\\Grass.png",
+    "uv": [0, 0],
+    "size": [16, 16]
   }
 }
