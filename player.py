@@ -4,39 +4,40 @@ import time
 from imageLoader import loadImage, cutImageByUv
 from tile.tile import TileMap
 
-time.time()
-
 
 class Player:
     x: float
     y: float
     speed: float
+    size: float
     state: str
 
     sprite: pygame.Surface
     animation: dict
-    animatedTime: float
+    animatedTime: int
     animationFrame: int
 
     world: TileMap
 
     def __init__(self, world: TileMap):
-        jsonData = None
-        with open("playerData.json", "r") as file:
-            jsonData = json.load(file)
+        playerConfig = None
+        with open("playerConfig.json", "r") as file:
+            playerConfig = json.load(file)
+        playerData = None
+        with open("save/player.json", "r") as file:
+            playerData = json.load(file)
+        self.x = playerData["x"]
+        self.y = playerData["y"]
 
-        self.speed = jsonData["speed"]
-        self.sprite = pygame.image.load(jsonData["sprite"]["imagePath"])
-        self.animation = jsonData["animation"]
-        self.animatedTime = time.time()
+        self.speed = playerConfig["speed"]
+        self.size = float(playerConfig["size"])
+        self.sprite = pygame.image.load(playerConfig["sprite"]["imagePath"])
+        self.animation = playerConfig["animation"]
+        self.animatedTime = pygame.time.get_ticks()
         self.animationFrame = 0
         self.world = world
 
-        loadImage(jsonData["sprite"])
-
-        self.x = 0
-        self.y = 0
-
+        loadImage(playerConfig["sprite"])
         self.state = "idle"
 
     def vector(self):
@@ -69,7 +70,7 @@ class Player:
         if len(self.animation[self.state]["frames"]) == 1:
             uv = self.animation[self.state]["frames"][0]["uv"]
             size = self.animation[self.state]["frames"][0]["size"]
-            return cutImageByUv(self.sprite, uv, size)
+            return cutImageByUv(self.sprite, uv, size, self.size * 4)
         if (
             time.time() - self.animatedTime
             > self.animation[self.state][self.animationFrame]["time"]
