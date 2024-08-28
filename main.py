@@ -14,6 +14,7 @@ pygame.display.set_caption("My Game")
 pallete = Pallete()
 tileMap = TileMap(pallete)
 player = Player(tileMap)
+clock = pygame.time.Clock()
 
 # Game loop
 running = True
@@ -32,6 +33,8 @@ while running:
 
     # Update the display
     pygame.display.flip()
+
+    clock.tick(100)
 
 # Quit Pygame
 pygame.quit()
