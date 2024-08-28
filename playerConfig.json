@@ -1,0 +1,43 @@
+{
+  "speed": 6,
+  "size": 1,
+  "sprite": {
+    "imagePath": "assets\\rabbit\\Characters\\character.png",
+    "uv": [0, 0],
+    "size": [16, 16]
+  },
+  "animation": {
+    "idle": {
+      "frames": [
+        {
+          "uv": [0, 0],
+          "size": [16, 16]
+        }
+      ]
+    },
+    "walk": {
+      "frames": [
+        {
+          "uv": [0, 0],
+          "size": [16, 16],
+          "time": 0.2
+        },
+        {
+          "uv": [16, 0],
+          "size": [16, 16],
+          "time": 0.2
+        },
+        {
+          "uv": [32, 0],
+          "size": [16, 16],
+          "time": 0.2
+        },
+        {
+          "uv": [48, 0],
+          "size": [16, 16],
+          "time": 0.2
+        }
+      ]
+    }
+  }
+}
