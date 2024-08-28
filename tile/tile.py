@@ -51,7 +51,7 @@ class TileMap:
                         for x in range(mapData["width"])
                     ]
                 )
-        self.screen = pygame.Surface((64 * 100, 64 * 100))
+        self.screen = pygame.Surface((64 * mapData["width"], 64 * mapData["height"]))
         self.pallete = pallete
 
         for row in self.tiles:
