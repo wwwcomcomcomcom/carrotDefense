@@ -76,7 +76,7 @@ if __name__ == "__main__":
     # These paths can be adjusted as needed
     image_path = "converter/output_image.png"
     config_path = "converter/config.json"
-    output_path = "output_map.json"
+    output_path = "save/town.json"
 
     image_to_map(image_path, config_path, output_path)
     print(f"Map data has been merged and saved to {output_path}")

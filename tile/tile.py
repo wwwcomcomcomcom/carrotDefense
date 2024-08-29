@@ -41,7 +41,7 @@ class TileMap:
         with open("save/town.json", "r") as file:
             mapData = json.load(file)
 
-        for layer, tiles in mapData["layers"].items():
+        for tiles in mapData["layers"]:
             for y in range(mapData["height"]):
                 self.tiles.append(
                     [
