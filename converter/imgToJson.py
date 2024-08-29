@@ -1,6 +1,6 @@
 import json
-import os
-from PIL import Image
+from psd_tools import PSDImage
+import numpy as np
 
 
 def load_config(config_path):
@@ -8,75 +8,50 @@ def load_config(config_path):
         return json.load(config_file)
 
 
-def load_existing_map(output_path):
-    if os.path.exists(output_path):
-        with open(output_path, "r") as existing_file:
-            return json.load(existing_file)
-    return None
-
-
-def merge_map_data(existing_data, new_data):
-    if existing_data is None:
-        return new_data
-
-    # Merge layers
-    for i, new_layer in enumerate(new_data["layers"]):
-        if i < len(existing_data["layers"]):
-            existing_data["layers"][i] = new_layer
-        else:
-            existing_data["layers"].append(new_layer)
-
-    # Update width and height if necessary
-    existing_data["width"] = max(existing_data["width"], new_data["width"])
-    existing_data["height"] = max(existing_data["height"], new_data["height"])
-
-    return existing_data
-
-
-def image_to_map(image_path, config_path, output_path):
+def psd_to_map(image_path, config_path, output_path):
     # Load configuration
     config = load_config(config_path)
 
     # Create a reverse mapping for easier lookup
     reverse_config = {tuple(v): int(k) for k, v in config.items()}
 
-    # Open the image
-    with Image.open(image_path) as img:
-        width, height = img.size
+    # Open the PSD file
+    psd = PSDImage.open(image_path)
+    width, height = psd.size
 
-        # Convert image to RGB mode if it's not already
-        if img.mode != "RGB":
-            img = img.convert("RGB")
+    # Initialize the output data structure
+    output_data = {"width": width, "height": height, "layers": []}
 
-        # Process the image
+    # Process each layer
+    for layer in psd:
+        if layer.is_group():
+            continue  # Skip group layers
+
+        layer_image = layer.composite()
+        layer_array = np.array(layer_image)
+
+        # Process the layer
         map_data = []
         for y in range(height):
             for x in range(width):
-                pixel = img.getpixel((x, y))
+                pixel = tuple(layer_array[y, x][:3])  # Get RGB values
                 map_value = reverse_config.get(
                     pixel, 0
                 )  # Default to 0 if color not in config
                 map_data.append(map_value)
 
-        # Prepare the new data
-        new_data = {"width": width, "height": height, "layers": [map_data]}
+        output_data["layers"].append(map_data)
 
-        # Load existing data if it exists
-        existing_data = load_existing_map(output_path)
-
-        # Merge new data with existing data
-        final_data = merge_map_data(existing_data, new_data)
-
-        # Save the merged data
-        with open(output_path, "w") as output_file:
-            json.dump(final_data, output_file)
+    # Save the output data
+    with open(output_path, "w") as output_file:
+        json.dump(output_data, output_file, indent=2)
 
 
 if __name__ == "__main__":
     # These paths can be adjusted as needed
-    image_path = "converter/output_image.png"
+    image_path = "converter/map.psd"
     config_path = "converter/config.json"
-    output_path = "save/town.json"
+    output_path = "converter/output_map.json"
 
-    image_to_map(image_path, config_path, output_path)
-    print(f"Map data has been merged and saved to {output_path}")
+    psd_to_map(image_path, config_path, output_path)
+    print(f"Map data has been saved to {output_path}")
