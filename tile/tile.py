@@ -15,7 +15,31 @@ class Tile:
         self.tile = tile
 
     def getTexture(self, pallete: Pallete):
-        return pallete.get_tile(self.tile)
+        return pallete.getTile(self.tile)
+
+    def stack(self, tile: str):
+        self.tile = StackedTile(self.x, self.y, [self.tile, tile])
+
+
+class StackedTile(Tile):
+    x: int
+    y: int
+    tiles: List[str]
+
+    def __init__(self, x: int, y: int, tiles: List[str]):
+        self.x = x
+        self.y = y
+        self.tiles = tiles
+
+    def getTexture(self, pallete: Pallete):
+        result = pygame.Surface(64, 64)
+        for tile in self.tiles:
+            result.blit(pallete.getTile(tile), (0, 0))
+        return pallete.getTile(self.tiles)
+
+    def stack(self, tile: str):
+        self.tiles.append(tile)
+        return self
 
 
 # {
@@ -56,11 +80,15 @@ class TileMap:
 
         for row in self.tiles:
             for tile in row:
-                self.screen.blit(
-                    pallete.get_tile(tile.tile), (tile.x * 64, tile.y * 64)
-                )
+                self.screen.blit(pallete.getTile(tile.tile), (tile.x * 64, tile.y * 64))
 
-    def add_tile(self, x: int, y: int, tile: str):
+    def addTile(self, x: int, y: int, tile: str):
+        self.tiles[x][y] = Tile(x, y, tile)
+
+    def setTile(self, x: int, y: int, tile: Tile):
+        self.tiles[x][y] = tile
+
+    def setTileWithName(self, x: int, y: int, tile: str):
         self.tiles[x][y] = Tile(x, y, tile)
 
     def render(self, window: pygame.Surface, x, y):

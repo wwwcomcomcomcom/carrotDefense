@@ -13,5 +13,5 @@ class Pallete:
             tile["image"] = loadImage(tile)
             print(f"Loaded tile {tileKey}")
 
-    def get_tile(self, tile_name: str) -> pygame.Surface:
+    def getTile(self, tile_name: str) -> pygame.Surface:
         return self.tileData[tile_name]["image"]
