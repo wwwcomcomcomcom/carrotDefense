@@ -2,7 +2,7 @@ import pygame
 import json
 import time
 from imageLoader import loadImage, cutImageByUv
-from tile.tile import TileMap
+from tile.tile import TownTileMap
 
 
 class Player:
@@ -17,9 +17,9 @@ class Player:
     animatedTime: int
     animationFrame: int
 
-    world: TileMap
+    world: TownTileMap
 
-    def __init__(self, world: TileMap):
+    def __init__(self, world: TownTileMap):
         playerConfig = None
         with open("playerConfig.json", "r") as file:
             playerConfig = json.load(file)

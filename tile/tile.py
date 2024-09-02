@@ -51,7 +51,7 @@ class StackedTile(Tile):
 # }
 
 
-class TileMap:
+class TownTileMap:
 
     tiles: List[List[Tile]]
 

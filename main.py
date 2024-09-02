@@ -1,5 +1,5 @@
 import pygame
-from tile.tile import Tile, TileMap
+from tile.tile import Tile, TownTileMap
 from tile.pallete import Pallete
 from player import Player
 from globalModule import windowWidth, windowHeight
@@ -12,7 +12,7 @@ window = pygame.display.set_mode((windowWidth, windowHeight))
 pygame.display.set_caption("My Game")
 
 pallete = Pallete()
-tileMap = TileMap(pallete)
+tileMap = TownTileMap(pallete)
 player = Player(tileMap)
 clock = pygame.time.Clock()
 
