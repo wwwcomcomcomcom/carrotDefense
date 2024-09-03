@@ -1,39 +1,5 @@
 import pygame
 from globalModule import windowHalfWidth, windowHalfHeight
-from typing import Dict, List, Tuple
-from imageLoader import cutImageByUv
-
-
-class Animation:
-    frames: List[pygame.Surface]
-    # Bigger is slower
-    speed: int
-    animatedTime: int
-    animationFrame: int
-
-    # "frames": [
-    #     {
-    #       "uv": [0, 0],
-    #       "size": [16, 16]
-    #     }
-    #   ]
-    def __init__(self, data: dict, sprite: pygame.Surface):
-        self.speed = data["speed"]
-        self.animatedTime = pygame.time.get_ticks()
-        self.animationFrame = 0
-        for uvData in data["frames"]:
-            uv = uvData["uv"]
-            size = uvData["size"]
-            self.frames.append(cutImageByUv(sprite, uv, size))
-
-    # also update frames
-    def getFrame(self) -> pygame.Surface:
-        if pygame.time.get_ticks() - self.animatedTime > self.speed:
-            self.animatedTime = pygame.time.get_ticks()
-            self.animationFrame += 1
-            if self.animationFrame >= len(self.frames):
-                self.animationFrame = 0
-        return self.frames[self.animationFrame]
 
 
 class GameObject:
@@ -61,4 +27,5 @@ class GameObject:
         return self.sprite
 
     def render(self, screen: pygame.Surface):
+        # TODO: fix postion
         screen.blit(self.sprite, (self.x, self.y))
