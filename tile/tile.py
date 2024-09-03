@@ -132,15 +132,3 @@ class TownTileMap(TileMap):
 
     def __init__(self, pallete: Pallete):
         super().__init__(pallete, "save/town.json")
-
-    def addTile(self, x: int, y: int, tile: str):
-        self.tiles[x][y] = Tile(x, y, tile)
-
-    def setTile(self, x: int, y: int, tile: Tile):
-        self.tiles[x][y] = tile
-
-    def setTileWithName(self, x: int, y: int, tile: str):
-        self.tiles[x][y] = Tile(x, y, tile)
-
-    def render(self, window: pygame.Surface, x, y):
-        window.blit(self.screen, [-x + 960 - 32, -y + 540 - 32])
