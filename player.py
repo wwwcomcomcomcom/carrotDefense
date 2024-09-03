@@ -43,24 +43,24 @@ class Player(GameObject):
 
     def move(self):
         keys = pygame.key.get_pressed()
-        player_movement = pygame.math.Vector2(0, 0)
+        playerMovement = pygame.math.Vector2(0, 0)
         if keys[pygame.K_LEFT]:
-            player_movement.x = -self.speed
+            playerMovement.x = -self.speed
         if keys[pygame.K_RIGHT]:
-            player_movement.x = self.speed
+            playerMovement.x = self.speed
         if keys[pygame.K_UP]:
-            player_movement.y = -self.speed
+            playerMovement.y = -self.speed
         if keys[pygame.K_DOWN]:
-            player_movement.y = self.speed
+            playerMovement.y = self.speed
 
-        tileX = (self.x + player_movement.x) / 64
-        tileY = (self.y + player_movement.y) / 64
+        tileX = (self.x + playerMovement.x) / 64
+        tileY = (self.y + playerMovement.y) / 64
         if self.world.tiles[round(tileY)][round(tileX)].tile == "water":
             print(tileX, tileY)
             return
 
-        self.x += player_movement.x
-        self.y += player_movement.y
+        self.x += playerMovement.x
+        self.y += playerMovement.y
 
     def getCurrentSprite(self):
         return self.animations[self.animationState].getFrame()
