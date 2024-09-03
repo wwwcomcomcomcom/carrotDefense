@@ -18,6 +18,8 @@ class Player(GameObject):
     size: float
     world: TileMap
 
+    lastDirection: str
+
     def __init__(self, world: TileMap):
         playerConfig = None
         with open("playerConfig.json", "r") as file:
@@ -33,7 +35,8 @@ class Player(GameObject):
         self.size = float(playerConfig["size"])
         self.world = world
 
-        self.animationState = "idle"
+        self.animationState = "idleDown"
+        self.lastDirection = "Down"
         self.animations = Animation.listFromJson(
             playerConfig["animations"], pygame.image.load(playerConfig["sprite"])
         )
@@ -44,19 +47,23 @@ class Player(GameObject):
     def move(self):
         keys = pygame.key.get_pressed()
         playerMovement = pygame.math.Vector2(0, 0)
-        self.animationState = "idle"
+        self.animationState = "idle" + self.lastDirection
         if keys[pygame.K_LEFT]:
             playerMovement.x = -self.speed
             self.animationState = "walkLeft"
+            self.lastDirection = "Left"
         if keys[pygame.K_RIGHT]:
             playerMovement.x = self.speed
             self.animationState = "walkRight"
+            self.lastDirection = "Right"
         if keys[pygame.K_UP]:
             playerMovement.y = -self.speed
             self.animationState = "walkUp"
+            self.lastDirection = "Up"
         if keys[pygame.K_DOWN]:
             playerMovement.y = self.speed
             self.animationState = "walkDown"
+            self.lastDirection = "Down"
 
         tileX = (self.x + playerMovement.x) / 64
         tileY = (self.y + playerMovement.y) / 64
