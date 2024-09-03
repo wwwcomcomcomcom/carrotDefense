@@ -1,0 +1,16 @@
+[
+  {
+    "tile": "stacked",
+    "state": {},
+    "layers": [
+      {
+        "tile": "grass",
+        "state": {}
+      },
+      {
+        "tile": "water",
+        "state": {}
+      }
+    ]
+  }
+]
