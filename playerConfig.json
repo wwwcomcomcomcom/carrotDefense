@@ -1,13 +1,10 @@
 {
   "speed": 6,
   "size": 1,
-  "sprite": {
-    "imagePath": "assets\\rabbit\\Characters\\character.png",
-    "uv": [0, 0],
-    "size": [16, 16]
-  },
-  "animation": {
+  "sprite": "assets\\rabbit\\Characters\\character.png",
+  "animations": {
     "idle": {
+      "speed": 0,
       "frames": [
         {
           "uv": [0, 0],
@@ -15,27 +12,24 @@
         }
       ]
     },
-    "walk": {
+    "walkFront": {
+      "speed": 1,
       "frames": [
         {
-          "uv": [0, 0],
-          "size": [16, 16],
-          "time": 0.2
+          "uv": [32, 0],
+          "size": [16, 16]
         },
         {
           "uv": [16, 0],
-          "size": [16, 16],
-          "time": 0.2
-        },
-        {
-          "uv": [32, 0],
-          "size": [16, 16],
-          "time": 0.2
+          "size": [16, 16]
         },
         {
           "uv": [48, 0],
-          "size": [16, 16],
-          "time": 0.2
+          "size": [16, 16]
+        },
+        {
+          "uv": [16, 0],
+          "size": [16, 16]
         }
       ]
     }
