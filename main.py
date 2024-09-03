@@ -3,6 +3,7 @@ from tile.tile import Tile, TownTileMap
 from tile.pallete import Pallete
 from player import Player
 from globalModule import windowWidth, windowHeight
+from object.object.house import House1
 
 # Initialize Pygame
 pygame.init()
@@ -16,6 +17,7 @@ tileMap = TownTileMap(pallete)
 player = Player(tileMap)
 clock = pygame.time.Clock()
 
+house = House1()
 # Game loop
 running = True
 
@@ -29,6 +31,7 @@ while running:
 
     # Update game logic
     tileMap.render(window, player.x, player.y)
+    house.render(window, player.x, player.y)
     player.render(window)
 
     # Update the display
