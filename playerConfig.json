@@ -3,11 +3,38 @@
   "size": 1,
   "sprite": "assets\\rabbit\\Characters\\character.png",
   "animations": {
-    "idle": {
+    "idleDown": {
       "speed": 0,
       "frames": [
         {
           "uv": [0, 0],
+          "size": [16, 16]
+        }
+      ]
+    },
+    "idleUp": {
+      "speed": 0,
+      "frames": [
+        {
+          "uv": [0, 16],
+          "size": [16, 16]
+        }
+      ]
+    },
+    "idleLeft": {
+      "speed": 0,
+      "frames": [
+        {
+          "uv": [0, 32],
+          "size": [16, 16]
+        }
+      ]
+    },
+    "idleRight": {
+      "speed": 0,
+      "frames": [
+        {
+          "uv": [0, 48],
           "size": [16, 16]
         }
       ]
