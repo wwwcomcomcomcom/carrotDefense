@@ -44,14 +44,19 @@ class Player(GameObject):
     def move(self):
         keys = pygame.key.get_pressed()
         playerMovement = pygame.math.Vector2(0, 0)
+        self.animationState = "idle"
         if keys[pygame.K_LEFT]:
             playerMovement.x = -self.speed
+            self.animationState = "walkLeft"
         if keys[pygame.K_RIGHT]:
             playerMovement.x = self.speed
+            self.animationState = "walkRight"
         if keys[pygame.K_UP]:
             playerMovement.y = -self.speed
+            self.animationState = "walkUp"
         if keys[pygame.K_DOWN]:
             playerMovement.y = self.speed
+            self.animationState = "walkDown"
 
         tileX = (self.x + playerMovement.x) / 64
         tileY = (self.y + playerMovement.y) / 64
