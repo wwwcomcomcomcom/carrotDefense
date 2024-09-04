@@ -1,7 +1,5 @@
 import pygame
 import json
-import time
-from imageLoader import loadImage, cutImageByUv
 from tile.tile import TileMap
 from object.gameObject import GameObject
 from object.animation import Animation
