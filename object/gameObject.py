@@ -1,5 +1,6 @@
 import pygame
 from globalModule import windowHalfWidth, windowHalfHeight
+from tile.tile import TileMap
 
 
 class GameObject:
@@ -7,13 +8,16 @@ class GameObject:
     y: float
     sprite: pygame.Surface
 
-    def __init__(self, x, y, sprite):
+    def __init__(self, x, y, sprite=None):
         self.x = x
         self.y = y
         self.sprite = sprite
 
     def getVecotor(self):
         return pygame.math.Vector2(self.x, self.y)
+
+    def getTilePosition(self):
+        return (int(self.x // 64), int(self.y // 64))
 
     def setPostion(self, x, y):
         self.x = x
