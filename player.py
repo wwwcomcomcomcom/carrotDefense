@@ -76,4 +76,11 @@ class Player(GameObject):
         return self.animations[self.animationState].getFrame()
 
     def render(self, screen: pygame.Surface):
-        screen.blit(self.getCurrentSprite(), [960 - 32, 540 - 32])
+        originSize = self.getCurrentSprite().get_size()
+        screen.blit(
+            pygame.transform.scale(
+                self.getCurrentSprite(),
+                (int(originSize[0] * self.size), int(originSize[1] * self.size)),
+            ),
+            [960 - 32, 540 - 32],
+        )
