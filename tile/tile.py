@@ -121,6 +121,9 @@ class TileMap:
     def renderTile(self, x, y, tile):
         self.screen.blit(self.pallete.getTile(tile), (x * 64, y * 64))
 
+    def getTilesInRange(self, fromX, fromY, toX, toY):
+        return self.tiles[fromX:toX][fromY:toY]
+
 
 class TownTileMap(TileMap):
 
