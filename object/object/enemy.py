@@ -3,8 +3,8 @@ import json
 from globalModule import windowHalfHeight, windowHalfWidth
 from object.gameObject import GameObject
 from object.animation import Animation
-
-# class Behavior:
+from player import Player
+import utils.vectors as VectorUtils
 
 
 class Enemy(GameObject):
@@ -15,6 +15,8 @@ class Enemy(GameObject):
 
 
 class Slime(GameObject):
+    target: GameObject
+
     def __init__(self, x, y):
         slimeConfig = None
         with open("object\\object\\slimeConfig.json", "r") as file:
@@ -25,11 +27,14 @@ class Slime(GameObject):
         self.animations = Animation.listFromJson(
             slimeConfig["animations"], pygame.image.load(slimeConfig["sprite"])
         )
+        self.target = Player()
 
     def render(self, screen: pygame.Surface, x, y):
-        screen.blit(
-            self.getCurrentSpirite(),
-            (-x - 32 + windowHalfWidth + self.x, -y - 32 + windowHalfHeight + self.y),
+        super().renderSprite(self.getCurrentSpirite(), screen, x, y)
+
+    def update(self):
+        self.addVector(
+            VectorUtils.moveVector(self.getVecotor(), self.target.getVecotor()) * 300
         )
 
     def getCurrentSpirite(self):

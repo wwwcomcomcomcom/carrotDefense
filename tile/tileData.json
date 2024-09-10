@@ -1,24 +1,28 @@
 {
   "grass": {
     "name": "grass",
+    "step": true,
     "imagePath": "assets\\map\\Ground\\TexturedGrass.png",
     "uv": [16, 0],
     "size": [16, 16]
   },
   "water": {
     "name": "water",
+    "step": false,
     "imagePath": "assets\\map\\Ground\\Grass.png",
     "uv": [0, 0],
     "size": [16, 16]
   },
   "bridge1": {
     "name": "bridge1",
+    "step": true,
     "imagePath": "assets\\map\\Buildings\\Enemy\\Orc\\AllBuildings-Preview.png",
     "uv": [112, 128],
     "size": [16, 16]
   },
   "bridge2": {
     "name": "bridge2",
+    "step": true,
     "imagePath": "assets\\map\\Buildings\\Enemy\\Orc\\AllBuildings-Preview.png",
     "uv": [80, 128],
     "size": [16, 16]

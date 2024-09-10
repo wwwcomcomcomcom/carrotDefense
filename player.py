@@ -3,8 +3,11 @@ import json
 from tile.tile import TileMap
 from object.gameObject import GameObject
 from object.animation import Animation
+from singleton_decorator import singleton
+import utils.collision as CollisionUtils
 
 
+@singleton
 class Player(GameObject):
     x: float
     y: float
@@ -39,9 +42,6 @@ class Player(GameObject):
             playerConfig["animations"], pygame.image.load(playerConfig["sprite"])
         )
 
-    def vector(self):
-        return pygame.math.Vector2(self.x, self.y)
-
     def move(self):
         keys = pygame.key.get_pressed()
         playerMovement = pygame.math.Vector2(0, 0)
@@ -63,14 +63,28 @@ class Player(GameObject):
             self.animationState = "walkDown"
             self.lastDirection = "Down"
 
-        tileX = (self.x + playerMovement.x) / 64
-        tileY = (self.y + playerMovement.y) / 64
-        if self.world.tiles[round(tileY)][round(tileX)].tile == "water":
-            print(tileX, tileY)
-            return
+        targetPosition = self.getVecotor() + playerMovement
+        for position in self.getSteppingTiles(
+            [int(targetPosition.x) // 64, int(targetPosition.y) // 64]
+        ):
+            collideRect = CollisionUtils.getCollideRectWithSize(
+                targetPosition.x + 32, targetPosition.y + 32, 64, 64
+            )
+            tile = self.world.tiles[position[1]][position[0]]
+            if self.world.pallete.isStepable(tile.tile) == True:
+                continue
+            else:
+                targetPosition += CollisionUtils.feedbackCollision(
+                    collideRect, tile.getCollideRect()
+                )
+        self.setVector(targetPosition)
+        # tileX = (self.x + playerMovement.x) / 64
+        # tileY = (self.y + playerMovement.y) / 64
+        # if self.world.tiles[round(tileY)][round(tileX)].tile == "water":
+        #     return
 
-        self.x += playerMovement.x
-        self.y += playerMovement.y
+        # self.x += playerMovement.x
+        # self.y += playerMovement.y
 
     def getCurrentSprite(self):
         return self.animations[self.animationState].getFrame()

@@ -27,6 +27,9 @@ class Tile:
     def stack(self, tile):
         self.tile = StackedTile(self.x, self.y, [self, tile])
 
+    def getCollideRect(self):
+        return pygame.Rect(self.x * 64, self.y * 64, 64, 64)
+
 
 class StackedTile(Tile):
     # Readonly

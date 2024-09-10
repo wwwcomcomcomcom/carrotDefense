@@ -15,3 +15,6 @@ class Pallete:
 
     def getTile(self, tile_name: str) -> pygame.Surface:
         return self.tileData[tile_name]["image"]
+
+    def isStepable(self, tile_name: str) -> bool:
+        return self.tileData[tile_name]["step"]

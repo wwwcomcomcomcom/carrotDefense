@@ -16,8 +16,13 @@ class GameObject:
     def getVecotor(self):
         return pygame.math.Vector2(self.x, self.y)
 
-    def getTilePosition(self):
-        return (int(self.x // 64), int(self.y // 64))
+    def setVector(self, vector):
+        self.x = vector.x
+        self.y = vector.y
+
+    def addVector(self, vector):
+        self.x += vector.x
+        self.y += vector.y
 
     def setPostion(self, x, y):
         self.x = x
@@ -27,9 +32,32 @@ class GameObject:
         self.x = vector.x
         self.y = vector.y
 
-    def getTexture(self):
+    def getCurrentSprite(self):
         return self.sprite
 
-    def render(self, screen: pygame.Surface):
-        # TODO: fix postion
-        screen.blit(self.sprite, (self.x, self.y))
+    def getTilePosition(self):
+        return (int(self.x // 64), int(self.y // 64))
+
+    def getSteppingTiles(self, origin: tuple[int, int]):
+        return [
+            origin,
+            (origin[0] + 1, origin[1]),
+            (origin[0], origin[1] + 1),
+            (origin[0] + 1, origin[1] + 1),
+        ]
+
+    def render(self, screen: pygame.Surface, x, y):
+        sprite = self.getCurrentSprite()
+        self._render(sprite, screen, x, y)
+
+    def renderSprite(self, sprite: pygame.Surface, screen: pygame.Surface, x, y):
+        screen.blit(
+            sprite,
+            (
+                -x + windowHalfWidth + self.x - sprite.get_width() / 2,
+                -y + windowHalfHeight + self.y - sprite.get_height() / 2,
+            ),
+        )
+
+    def update(self):
+        pass
