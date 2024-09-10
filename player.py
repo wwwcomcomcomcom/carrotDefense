@@ -47,36 +47,37 @@ class Player(GameObject):
         playerMovement = pygame.math.Vector2(0, 0)
         self.animationState = "idle" + self.lastDirection
         if keys[pygame.K_LEFT]:
-            playerMovement.x = -self.speed
+            playerMovement.x = -1
             self.animationState = "walkLeft"
             self.lastDirection = "Left"
         if keys[pygame.K_RIGHT]:
-            playerMovement.x = self.speed
+            playerMovement.x = 1
             self.animationState = "walkRight"
             self.lastDirection = "Right"
         if keys[pygame.K_UP]:
-            playerMovement.y = -self.speed
+            playerMovement.y = -1
             self.animationState = "walkUp"
             self.lastDirection = "Up"
         if keys[pygame.K_DOWN]:
-            playerMovement.y = self.speed
+            playerMovement.y = 1
             self.animationState = "walkDown"
             self.lastDirection = "Down"
+        if playerMovement.length() != 0:
+            playerMovement = playerMovement.normalize() * self.speed
 
         targetPosition = self.getVecotor() + playerMovement
-        for position in self.getSteppingTiles(
-            [int(targetPosition.x) // 64, int(targetPosition.y) // 64]
-        ):
+        for position in self.getSteppingTiles(targetPosition):
             collideRect = CollisionUtils.getCollideRectWithSize(
                 targetPosition.x + 32, targetPosition.y + 32, 64, 64
             )
-            tile = self.world.tiles[position[1]][position[0]]
+            tile = self.world.getTile(position[0], position[1])
             if self.world.pallete.isStepable(tile.tile) == True:
                 continue
             else:
-                targetPosition += CollisionUtils.feedbackCollision(
+                feedback = CollisionUtils.feedbackCollision(
                     collideRect, tile.getCollideRect()
                 )
+                targetPosition += feedback
         self.setVector(targetPosition)
         # tileX = (self.x + playerMovement.x) / 64
         # tileY = (self.y + playerMovement.y) / 64

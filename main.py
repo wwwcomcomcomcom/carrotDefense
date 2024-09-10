@@ -18,7 +18,7 @@ pallete = Pallete()
 tileMap = TownTileMap(pallete)
 player = Player(tileMap)
 objectPool = ObjectPool(tileMap)
-objectPool.addObject(Slime(3000, 3000))
+objectPool.addObject(Slime(tileMap, 3000, 3000))
 objectPool.addObject(House1())
 clock = pygame.time.Clock()
 

@@ -20,6 +20,16 @@ class ObjectPool:
     def getObject(self, index: int):
         return self.objects[index]
 
+    def getAllObjects(self):
+        return self.objects
+
+    def getObjectsWithClass(self, classType: type):
+        objects = []
+        for obj in self.objects:
+            if isinstance(obj, classType):
+                objects.append(obj)
+        return objects
+
     def removeObject(self, obj: GameObject):
         self.objects.remove(obj)
 

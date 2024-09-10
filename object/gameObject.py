@@ -38,12 +38,20 @@ class GameObject:
     def getTilePosition(self):
         return (int(self.x // 64), int(self.y // 64))
 
-    def getSteppingTiles(self, origin: tuple[int, int]):
+    # @params postion: not tile position
+    def getSteppingTiles(self, postion: pygame.math.Vector2):
+        origin = postion.copy()
+        origin.x = int(origin.x // 64)
+        origin.y = int(origin.y // 64)
         return [
-            origin,
-            (origin[0] + 1, origin[1]),
-            (origin[0], origin[1] + 1),
-            (origin[0] + 1, origin[1] + 1),
+            (int(origin.x), int(origin.y)),
+            (int(origin.x + 1), int(origin.y)),
+            (int(origin.x), int(origin.y + 1)),
+            (int(origin.x + 1), int(origin.y + 1)),
+            (int(origin.x - 1), int(origin.y)),
+            (int(origin.x), int(origin.y - 1)),
+            (int(origin.x - 1), int(origin.y - 1)),
+            (int(origin.x + 1), int(origin.y - 1)),
         ]
 
     def render(self, screen: pygame.Surface, x, y):

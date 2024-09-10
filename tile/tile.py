@@ -88,13 +88,13 @@ class TileMap:
             mapData = json.load(file)
 
         for tiles in mapData["layers"]:
-            for y in range(mapData["height"]):
+            for x in range(mapData["width"]):
                 self.tiles.append(
                     [
                         Tile(
                             x, y, mapData["tile"][str(tiles[x + y * mapData["width"]])]
                         )
-                        for x in range(mapData["width"])
+                        for y in range(mapData["height"])
                     ]
                 )
         self.screen = pygame.Surface((64 * mapData["width"], 64 * mapData["height"]))
