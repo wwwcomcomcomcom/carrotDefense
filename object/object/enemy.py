@@ -53,7 +53,7 @@ class Slime(GameObject):
             # collideRect = CollisionUtils.getCollideRectWithSize(
             #     self.x + 32, self.y + 32, 64, 64
             # )
-            aabb = AABB(self.x + 32, self.y + 32, 64, 64)
+            aabb = AABB(self.x, self.y, 64, 64)
             tile = self.world.getTile(position[0], position[1])
             if self.world.pallete.isStepable(tile.tile) == True:
                 continue
