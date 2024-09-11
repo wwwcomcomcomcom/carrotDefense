@@ -12,8 +12,8 @@ def getCollideRect(x, y, sprite: pygame.Surface):
 
 def getCollideRectWithSize(x, y, width, height):
     return pygame.Rect(
-        x - width / 2,
-        y - height / 2,
+        round(x) - width / 2,
+        round(y) - height / 2,
         width,
         height,
     )
