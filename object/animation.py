@@ -35,9 +35,15 @@ class Animation:
 
     # also update frames
     def getFrame(self) -> pygame.Surface:
-        if pygame.time.get_ticks() - self.animatedTime * self.speed > 100:
+        if self.speed == 0:
+            return self.frames[self.animationFrame]
+        if pygame.time.get_ticks() - self.animatedTime > 100 / self.speed:
             self.animatedTime = pygame.time.get_ticks()
             self.animationFrame += 1
             if self.animationFrame >= len(self.frames):
                 self.animationFrame = 0
         return self.frames[self.animationFrame]
+
+    def reset(self):
+        self.animatedTime = pygame.time.get_ticks()
+        self.animationFrame = 0

@@ -42,8 +42,20 @@ class Player(GameObject):
             playerConfig["animations"], pygame.image.load(playerConfig["sprite"])
         )
 
+    def update(self):
+        self.move()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_e]:
+            if "useHoe" not in self.animationState:
+                self.animations["useHoeDown"].reset()
+            self.animationState = "useHoeDown"
+        else:
+            self.animationState = self.animationState.replace("useHoe", "idle")
+
     def move(self):
         keys = pygame.key.get_pressed()
+        if "useHoe" in self.animationState:
+            return
         playerMovement = pygame.math.Vector2(0, 0)
         self.animationState = "idle" + self.lastDirection
         if keys[pygame.K_LEFT]:
@@ -92,10 +104,11 @@ class Player(GameObject):
 
     def render(self, screen: pygame.Surface):
         originSize = self.getCurrentSprite().get_size()
+        sprite = self.getCurrentSprite()
         screen.blit(
             pygame.transform.scale(
-                self.getCurrentSprite(),
+                sprite,
                 (int(originSize[0] * self.size), int(originSize[1] * self.size)),
             ),
-            [960 - 32, 540 - 32],
+            [960 - sprite.get_width() / 2, 540 - sprite.get_height() / 2],
         )

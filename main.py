@@ -33,7 +33,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    player.move()
+    player.update()
 
     # Update game logic
     tileMap.render(window, player.x, player.y)

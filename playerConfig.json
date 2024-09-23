@@ -1,7 +1,7 @@
 {
   "speed": 6,
   "size": 1,
-  "sprite": "assets\\rabbit\\Characters\\character.png",
+  "sprite": "assets\\rabbit\\Characters\\characters.png",
   "animations": {
     "idleDown": {
       "speed": 0,
@@ -120,6 +120,19 @@
         {
           "uv": [16, 48],
           "size": [16, 16]
+        }
+      ]
+    },
+    "useHoeDown": {
+      "speed": 0.5,
+      "frames": [
+        {
+          "uv": [0, 64],
+          "size": [16, 30]
+        },
+        {
+          "uv": [16, 64],
+          "size": [16, 30]
         }
       ]
     }
