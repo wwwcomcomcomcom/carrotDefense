@@ -6,6 +6,7 @@ from globalModule import windowWidth, windowHeight
 from object.object.house import House1
 from object.object.enemy import Slime
 from object.objectPool import ObjectPool
+from gui import GUI
 
 # Initialize Pygame
 pygame.init()
@@ -21,6 +22,7 @@ objectPool = ObjectPool(tileMap)
 objectPool.addObject(Slime(tileMap, 3000, 3000))
 objectPool.addObject(House1())
 clock = pygame.time.Clock()
+gui = GUI()
 
 # Game loop
 running = True
@@ -38,6 +40,7 @@ while running:
     objectPool.update()
     objectPool.render(window, player.x, player.y)
     player.render(window)
+    gui.render()
 
     # Update the display
     pygame.display.flip()

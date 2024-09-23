@@ -50,20 +50,13 @@ class Slime(GameObject):
         index = 0  # 인덱스 변수 추가
 
         for position in steppingTiles:
-            # collideRect = CollisionUtils.getCollideRectWithSize(
-            #     self.x + 32, self.y + 32, 64, 64
-            # )
             aabb = AABB(self.x, self.y, 64, 64)
             tile = self.world.getTile(position[0], position[1])
             if self.world.pallete.isStepable(tile.tile) == True:
                 continue
             else:
-                # feedback = Utils.feedbackCollision(
-                #     collideRect, tile.getCollideRect()
-                # )
                 feedback = aabb.feedbackCollision(AABB.fromRect(tile.getCollideRect()))
                 targetPosition += feedback
-                print(targetPosition)
 
         self.setVector(targetPosition)
 

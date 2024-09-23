@@ -1,6 +1,6 @@
 import pygame
 from typing import List, Dict
-from imageLoader import cutImageByUv
+from utils.imageLoader import cutImageByUv
 
 
 class Animation:

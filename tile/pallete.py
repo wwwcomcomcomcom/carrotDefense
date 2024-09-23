@@ -1,6 +1,6 @@
 import json
 import pygame
-from imageLoader import loadImage
+from utils.imageLoader import loadImage
 
 
 class Pallete:

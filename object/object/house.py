@@ -1,7 +1,7 @@
 import pygame
 from object.gameObject import GameObject
 from globalModule import windowHalfHeight, windowHalfWidth
-from imageLoader import loadImageByData
+from utils.imageLoader import loadImageByData
 
 
 class House1(GameObject):
